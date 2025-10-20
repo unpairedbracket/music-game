@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>MusicRound</title>
+</head>
+
+<body>
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+
+    <div id="embed-iframe"></div>
+
+    <button id="play_pause">Play/Pause</button>
+    <button id="restart">Restart</button>
+    <input id="guess" />
+    <button id="Submit">Submit</button>
+
+
+    <script>
+        window.onSpotifyIframeApiReady = (IFrameAPI) => {
+            const element = document.getElementById('embed-iframe');
+            const options = {
+                uri: 'spotify:track:4PTG3Z6ehGkBFwjybzWkR8'
+            };
+            const callback = (controller) => {
+                controller.addListener('playback_update', e => {
+                    console.log(e);
+                });
+                document.getElementById('play_pause').addEventListener('click', (e) => controller.togglePlay())
+                document.getElementById('restart').addEventListener('click', (e) => controller.restart())
+            };
+            IFrameAPI.createController(element, options, callback);
+        };
+
+    </script>
+</body>
+
+</html>
